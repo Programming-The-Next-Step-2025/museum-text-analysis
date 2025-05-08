@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["museum-text-analysis"]
+
+[project]
+name = "museum-text-analysis"
+version = "0.0.1"
+authors = [
+  { name="Selen", email="klara.selen@student.uva.nl" },
+]
+description = "A BERTopic app to analyze open-ended questionnaire responses. "
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
