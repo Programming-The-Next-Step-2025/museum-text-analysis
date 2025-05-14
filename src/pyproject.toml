@@ -3,10 +3,10 @@ requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["museum-text-analysis"]
+packages = ["museum_text_analysis"]
 
 [project]
-name = "museum-text-analysis"
+name = "museum_text_analysis"
 version = "0.0.1"
 authors = [
   { name="Selen", email="klara.selen@student.uva.nl" },
@@ -20,3 +20,18 @@ classifiers = [
 ]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
+
+dependencies = [
+    "streamlit",
+    "pandas",
+    "plotly",
+    "wordcloud",
+    "matplotlib",
+    "bertopic",
+    "scikit-learn"
+]
+
+[project.urls]
+Homepage = "https://github.com/Programming-The-Next-Step-2025/museum-text-analysis"
+Issues = "https://github.com/Programming-The-Next-Step-2025/museum-text-analysis/issues"
+
