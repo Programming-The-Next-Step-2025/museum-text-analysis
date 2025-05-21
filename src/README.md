@@ -9,29 +9,12 @@ This project aims to support topic modeling of qualitative survey data using BER
 
 This repository is structured as a Python package and will be extended over the course of four weeks.
 
-## Features (Planned)
+## Features
 
 - Upload and process CSV files with text data
 - Topic modeling using [BERTopic](https://doi.org/10.48550/arXiv.2203.05794)
 - Visualise data and topic summaries
-- Download reports
-
-## Directory Structure
-
-museum-text-analysis/
-├── src/
-│ └── museum_text_analysis/
-│ ├── init.py
-│ ├── app.py
-│ └── bertopic_analysis.py
-├── sample_data/
-│ └── sample_responses.csv
-├── outputs/
-│ └── topics.png
-├── LICENSE
-├── pyproject.toml
-├── requirements.txt
-└── README.md
+- Download visualisations
 
 ## Installation
 

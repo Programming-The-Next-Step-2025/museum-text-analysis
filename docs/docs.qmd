@@ -1,0 +1,63 @@
+---
+title: "Museum Text Analysis Package"
+format: html
+editor: visual
+---
+
+## Overview
+
+This project is a Streamlit-based application for analysing open-ended questionnaire responses from museum visitors using BERTopic.
+
+This vignette demonstrates how to use the `museum_text_analysis` package to explore open-ended museum visitor responses using BERTopic.
+
+It walks through: - Requirements and setup - How to use the Streamlit app interface - An example application using real (anonymized and simulated) visitor response data from a Holocaust exhibition.
+
+Author: Klara Selén
+
+## Installation
+
+## Task Overview & Requirements
+
+### Objective
+
+The task is to extract meaningful topics from visitor responses collected from the National Holocaust Museum in Amsterdam, using topic modeling (BERTopic), frequency-based analysis, and visualization tools.
+
+### Requirements
+
+-   Python ≥ 3.9
+-   Packages:
+    -   streamlit
+    -   bertopic
+    -   sklearn
+    -   pandas
+    -   matplotlib
+    -   seaborn
+    -   wordcloud
+    -   plotly
+-   A CSV file with the following four columns:
+    -   "What kind of emotions did the exhibit trigger in you"
+    -   "Is there an item or story from the exhibit that stayed with you? If so, why?"
+    -   "What is your key takeaway from this exhibition?"
+    -   "To what extent did the exhibition move you?"
+
+### Technique
+
+The app performs: - Topic modeling using [BERTopic](https://maartengr.github.io/BERTopic/) - Word cloud generation - Frequency counts for emotional movement answers
+
+## How-to Guide
+
+## Use Cases
+
+## An Example
+
+## References
+
+-   BERTopic: https://maartengr.github.io/BERTopic/
+-   Streamlit: https://streamlit.io/
+-   WordCloud: https://github.com/amueller/word_cloud
+
+## Appendix: Troubleshooting
+
+-   Missing columns? → Make sure your CSV matches the expected schema and uses ; as a delimiter.
+-   No topics generated? → Check if input text is sparse or contains too many stop words.
+-   App won't launch? → Confirm you installed all requirements and are running streamlit run app.py.
