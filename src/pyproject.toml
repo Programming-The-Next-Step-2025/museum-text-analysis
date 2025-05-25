@@ -3,7 +3,8 @@ requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/museum_text_analysis"]
+packages = ["museum_text_analysis"]
+source = "src"
 
 [project]
 name = "museum_text_analysis"
