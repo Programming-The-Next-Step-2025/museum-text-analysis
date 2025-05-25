@@ -1,16 +1,29 @@
+"""bertopic_analysis.py
+
+Functions for loading museum response data and running BERTopic modeling.
+
+Includes:
+- Data loading and cleaning
+- Configurable BERTopic execution
+- Per-column topic modeling
+"""
+
+# Standard library
+import pandas as pd
+from typing import Dict
+
+# Third-party
 from bertopic import BERTopic
 from umap import UMAP
 from hdbscan import HDBSCAN
-import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
-from museum_text_analysis.museum_topic_utils import get_custom_stop_words
-from typing import Dict
 from sentence_transformers import SentenceTransformer
 
+# Local
+from museum_text_analysis.museum_topic_utils import get_custom_stop_words
 
 def load_data(uploaded_file) -> pd.DataFrame:
-    """
-    Load and prepare the data you want to analyse.
+    """Load and prepare the data you want to analyse.
 
     This function reads a CSV file and combines three open-ended text response 
     columns into a single column for further text analysis.
@@ -47,8 +60,7 @@ def run_bertopic(texts: list[str]) -> tuple[list[int], BERTopic]:
     if not texts or not isinstance(texts, list):
         raise ValueError("Input texts must be a non-empty list.")
 
-    """
-    Fit BERTopic to a list of texts and return topics + model.
+    """Fit BERTopic to a list of texts and return topics + model.
     This function uses a custom CountVectorizer with a list of stop words
     and a seed topic list to guide the topic modeling process.
 
@@ -72,10 +84,22 @@ def run_bertopic(texts: list[str]) -> tuple[list[int], BERTopic]:
     # Custom dimensionality reduction
     umap_model = UMAP(n_neighbors=10, n_components=5, min_dist=0.3, metric="cosine")
 
-    # Use HDBSCAN for more aggressive topic merging
-    hdbscan_model = HDBSCAN(min_cluster_size=10, metric="euclidean", cluster_selection_method="eom")
+    # Use UMAP for more focused clusters
+    umap_model = UMAP(
+        n_neighbors=15,         
+        n_components=5,
+        min_dist=0.2,           
+        metric="cosine"
+    )
 
-    # Seed topics
+    # Use HDBSCAN for stricter cluster formation
+    hdbscan_model = HDBSCAN(
+        min_cluster_size=15,   
+        metric="euclidean",
+        cluster_selection_method="eom"
+    )
+
+    # Seed topics to guide the model
     seed_topic_list = [
         ["children", "sad", "anger", "cry"],
         ["fear", "hope", "inspiration"],
@@ -91,20 +115,19 @@ def run_bertopic(texts: list[str]) -> tuple[list[int], BERTopic]:
         hdbscan_model=hdbscan_model,
         vectorizer_model=vectorizer_model,
         seed_topic_list=seed_topic_list,
-        min_topic_size=10,
+        min_topic_size=15,
         verbose=True
     )
 
     topics, _ = model.fit_transform(texts)
 
     # Force reduction to fewer topics if needed
-    model.reduce_topics(texts, nr_topics=6)
+    model.reduce_topics(texts, nr_topics=5)
 
     return topics, model
 
 def run_bertopic_per_column(df: pd.DataFrame) -> Dict[str, Dict[str, object]]:
-    """
-    Run BERTopic separately for each column in a DataFrame of text responses.
+    """Run BERTopic separately for each column in a DataFrame of text responses.
 
     Args:
         df: DataFrame where each column contains open-text responses.

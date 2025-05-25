@@ -1,14 +1,43 @@
-import streamlit as st
-from museum_text_analysis.bertopic_analysis import load_data, run_bertopic, run_bertopic_per_column
-from museum_text_analysis.museum_topic_utils import get_custom_stop_words, generate_wordcloud, get_top_word_frequencies, plot_word_frequencies
+"""app.py
+
+Streamlit app for uploading and analyzing museum visitor responses using BERTopic.
+
+Steps:
+1. Upload CSV with free-text responses.
+2. Run topic modeling using BERTopic.
+3. Display topics, both overall and per question.
+4. Generate word clouds and frequency plots.
+"""
+
+# Standard library
 import pandas as pd
-import plotly.express as px
-from wordcloud import WordCloud
+
+# Third-party
+import streamlit as st
 import matplotlib.pyplot as plt
+import plotly.express as px
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+
+# Local
+from museum_text_analysis.bertopic_analysis import load_data, run_bertopic, run_bertopic_per_column
+from museum_text_analysis.museum_topic_utils import (
+    get_custom_stop_words,
+    generate_wordcloud,
+    get_top_word_frequencies,
+    plot_word_frequencies,
+)
 
 # Streamlit app for BERTopic analysis
 st.title("Museum Visitor Response Topic Explorer")
+
+# Add sidebar instructions
+st.sidebar.title("Instructions")
+st.sidebar.markdown("""
+1. Upload a CSV file with visitor responses.
+2. Make sure it contains the expected question columns.
+3. Wait for topic modeling to complete.
+4. Explore topics and representative responses.
+""")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
@@ -25,14 +54,40 @@ if uploaded_file:
         ]
         moved_col = "To what extent did the exhibition move you?"
 
-        # BERTopic Combined
-        combined_texts = (
-            df[bertopic_text_columns[0]] + " " + df[bertopic_text_columns[1]]
-        ).tolist()
-        combined_topics, combined_model = run_bertopic(combined_texts)
-        st.success("Text Topic Modeling Complete! Hang tight...")
+        # Combine all text responses into one column
+        df["combined_responses"] = df[bertopic_text_columns].astype(str).agg(" ".join, axis=1)
 
-        st.write("### Topic Modeling Per Question")
+        # Run overall topic modeling on all combined text
+        st.subheader("Overall Topic Summary (All Responses Combined)")
+        with st.spinner("Analyzing overall topics..."):
+            overall_model = run_bertopic(df["combined_responses"].tolist())[1]
+            overall_topic_info = overall_model.get_topic_info()
+            st.dataframe(overall_topic_info)
+
+            # Download button
+            csv = overall_topic_info.to_csv(index=False).encode("utf-8")
+            st.download_button(
+                label="Download Overall Topic Summary CSV",
+                data=csv,
+                file_name="overall_topic_summary.csv",
+                mime="text/csv"
+            )
+
+            # Topic distribution pie chart
+            st.markdown("### Topic Distribution")
+            fig = px.pie(
+                overall_topic_info,
+                values="Count",
+                names="Topic",
+                title="Overall Topic Distribution",
+                color_discrete_sequence=px.colors.qualitative.Plotly
+            )
+            fig.update_traces(textposition="inside", textinfo="percent+label")
+            st.plotly_chart(fig)
+
+        # Individual column topic modeling
+        st.success("Individual Topic Modeling Complete! Explore Below:")
+
         results_per_col = run_bertopic_per_column(df[bertopic_text_columns].fillna(""))
 
         for col in bertopic_text_columns:
@@ -46,7 +101,8 @@ if uploaded_file:
                 topics_df,
                 x="Clean Name",
                 y="Count",
-                title=f"Topic Frequencies for: {col}",
+                title=f"Top Topics",
+                color="Count",
                 text="Count"
             )
             fig.update_layout(xaxis_tickangle=-45, title_x=0.3)
@@ -65,17 +121,17 @@ if uploaded_file:
                 st.markdown(f"**Topic {topic_id}**:")
                 try:
                     docs = model.get_representative_docs(topic_id)
-                    if docs:  # Ensure the list isn't empty
-                        st.write(f"\u2022 {docs[0]}")  # Only the most representative doc
+                    if docs:
+                        st.write(f"\u2022 {docs[0]}")
                     else:
                         st.write("No representative examples found.")
                 except Exception:
                     st.write("No representative examples found.")
 
-        st.write(f"### Phrase frequencies in '{moved_col}'")
+        # Phrase frequency bar chart for moved_col
+        st.write(f"### Phrase Frequencies in '{moved_col}'")
         cleaned = df[moved_col].dropna().str.strip().str.lower()
         freq = cleaned.value_counts()
-
         expected_phrases = ["deeply moved", "very moved", "somewhat moved", "not at all"]
         freq_full = {phrase: freq.get(phrase, 0) for phrase in expected_phrases}
 
@@ -84,12 +140,14 @@ if uploaded_file:
 
         st.bar_chart(pd.Series(freq_full))
 
+        # Word cloud of combined responses
         st.write("### Word Cloud of Responses")
-        combined_text_str = " ".join(combined_texts).lower()
+        combined_text_str = " ".join(df["combined_responses"]).lower()
         stop_words = get_custom_stop_words()
         fig_wc = generate_wordcloud(combined_text_str, stop_words)
         st.pyplot(fig_wc)
 
+        # Optional frequency plot
         if st.checkbox("Show Top Word Frequencies"):
             stop_words = get_custom_stop_words()
             words, counts = get_top_word_frequencies(combined_text_str, stop_words=stop_words)

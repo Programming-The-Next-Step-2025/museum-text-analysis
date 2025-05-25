@@ -1,30 +1,35 @@
-"""
-Helper functions for museum topic analysis app.
+"""museum_topic_utils.py
 
-This module contains text cleaning, visualization, and modeling helpers
-for use in the Streamlit interface.
+Helper functions for cleaning text, visualizing word distributions,
+and supporting topic modeling for the museum response analysis app.
+
+This module includes:
+- Text cleaning and stopword custimization
+- Word cloud generation
+- Bar plot generation
+- Frequency analysis and visualization
 """
 
+# Standard library
 import re
-from typing import List, Tuple, Dict
 from collections import Counter
+from typing import List, Tuple, Dict
 
+# Third-party
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from wordcloud import WordCloud
 
-
 def clean_text(text: str) -> str:
-    """
-    Cleans text by removing punctuation, digits, and extra whitespace.
+    """Cleans text by removing punctuation, digits, and extra whitespace.
 
     Args:
         text: Raw input string.
 
     Returns:
-        A cleaned and lowercased string.
+        A cleaned and lowercased string with punctuation and digits removed.
     """
     text = re.sub(r"[-+&]", " ", text)
     text = re.sub(r"[^\w\s]", " ", text)
@@ -32,29 +37,30 @@ def clean_text(text: str) -> str:
     return text.lower().strip()
 
 def get_custom_stop_words(additional: set[str] = None) -> set[str]:
-    """
-    Return a consistent set of stop words for topic modeling and word clouds.
+    """Return a consistent set of stop words for topic modeling and word clouds.
 
     Args:
-        additional (set[str], optional): Additional stop words to include.
+        additional: Optional set of additional stop words to include.
 
     Returns:
-        set[str]: A unified set of stop words.
+        set[str]: A unified set of stop words including base English stop words
+        and project-specific stop words.
     """
     base_stop_words = set(ENGLISH_STOP_WORDS)
-    project_specific = {"somewhat", "very", "deeply", "moved", "not at all", "s", "felt", "experienced"}
+    project_specific = {
+        "somewhat", "very", "deeply", "moved", "not at all", "s", "felt", "experienced"
+    }
     combined = base_stop_words.union(project_specific)
     if additional:
         combined = combined.union(additional)
     return combined
 
 def generate_wordcloud(text: str, stopwords: set = None) -> plt.Figure:
-    """
-    Generates a matplotlib word cloud figure.
+    """Generate a matplotlib word cloud figure from input text.
 
     Args:
         text: Concatenated input text.
-        stopwords: Optional set of stopwords to remove.
+        stopwords: Optional set of stopwords to remove from word cloud.
 
     Returns:
         A matplotlib Figure object.
@@ -65,7 +71,12 @@ def generate_wordcloud(text: str, stopwords: set = None) -> plt.Figure:
     words = " ".join(
         [word for word in text.lower().split() if word not in stopwords]
     )
-    wordcloud = WordCloud(width=800, height=400, background_color="white").generate(words)
+    wordcloud = WordCloud(
+        width=800, 
+        height=400, 
+        background_color="#0e1117", 
+        colormap="cividis",
+    ).generate(words)
 
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.imshow(wordcloud, interpolation="bilinear")
@@ -73,14 +84,17 @@ def generate_wordcloud(text: str, stopwords: set = None) -> plt.Figure:
     return fig
 
 
-def get_top_word_frequencies(text: str, n: int = 20, stop_words: set[str] = None) -> Tuple[List[str], List[int]]:
-    """
-    Computes top N word frequencies from cleaned text, excluding stop words.
+def get_top_word_frequencies(
+    text: str, 
+    n: int = 20, 
+    stop_words: set[str] = None
+    ) -> Tuple[List[str], List[int]]:
+    """Computes top N word frequencies from cleaned text, excluding stop words.
 
     Args:
         text: Preprocessed text string.
         n: Number of top words to return.
-        stop_words: Set of stop words to exclude.
+        stop_words: Optional set of stop words to exclude.
 
     Returns:
         A tuple of (words, frequencies) lists.
@@ -102,8 +116,7 @@ def get_top_word_frequencies(text: str, n: int = 20, stop_words: set[str] = None
 
 
 def plot_word_frequencies(words: List[str], counts: List[int]) -> plt.Figure:
-    """
-    Creates a horizontal bar plot of word frequencies.
+    """Create a horizontal bar plot of word frequencies.
 
     Args:
         words: List of words.

@@ -28,7 +28,11 @@ dependencies = [
     "wordcloud",
     "matplotlib",
     "bertopic",
-    "scikit-learn"
+    "scikit-learn",
+    "umap-learn",
+    "hdbscan",
+    "sentence-transformers",
+    "seaborn",
 ]
 
 [project.urls]
