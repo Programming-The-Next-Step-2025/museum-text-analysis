@@ -57,9 +57,6 @@ def load_data(uploaded_file) -> pd.DataFrame:
     return df
 
 def run_bertopic(texts: list[str]) -> tuple[list[int], BERTopic]:
-    if not texts or not isinstance(texts, list):
-        raise ValueError("Input texts must be a non-empty list.")
-
     """Fit BERTopic to a list of texts and return topics + model.
     This function uses a custom CountVectorizer with a list of stop words
     and a seed topic list to guide the topic modeling process.
@@ -74,6 +71,8 @@ def run_bertopic(texts: list[str]) -> tuple[list[int], BERTopic]:
     Raises: 
         ValueError: If the input texts are empty or not a list.
     """
+    if not texts or not isinstance(texts, list):
+        raise ValueError("Input texts must be a non-empty list.")
 
     # Custom vectorizer with stop words
     vectorizer_model = CountVectorizer(stop_words=list(get_custom_stop_words()))

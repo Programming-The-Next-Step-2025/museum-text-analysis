@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Museum Text Analysis Package</title>
+<title>readme</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,17 +58,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="docs_files/libs/clipboard/clipboard.min.js"></script>
-<script src="docs_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="docs_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="docs_files/libs/quarto-html/popper.min.js"></script>
-<script src="docs_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="docs_files/libs/quarto-html/anchor.min.js"></script>
-<link href="docs_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="docs_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="docs_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="docs_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="docs_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="README_files/libs/clipboard/clipboard.min.js"></script>
+<script src="README_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="README_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="README_files/libs/quarto-html/popper.min.js"></script>
+<script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="README_files/libs/quarto-html/anchor.min.js"></script>
+<link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="README_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -79,141 +79,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Museum Text Analysis Package</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="overview" class="level1">
-<h1>Overview</h1>
-<p>This project is a Streamlit-based application for analyzing open-ended questionnaire responses from museum visitors using BERTopic.</p>
-<p>This vignette demonstrates how to use the <code>museum_text_analysis</code> package to explore open-ended museum visitor responses using BERTopic.</p>
-</section>
-<section id="installation" class="level1">
-<h1>Installation</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>Programming<span class="op">-</span>The<span class="op">-</span>Next<span class="op">-</span>Step<span class="op">-</span><span class="dv">2025</span><span class="op">/</span>museum<span class="op">-</span>text<span class="op">-</span>analysis.git<span class="co">#egg=museum_text_analysis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="task-overview-requirements" class="level1">
-<h1>Task Overview &amp; Requirements</h1>
-<section id="objective" class="level3">
-<h3 class="anchored" data-anchor-id="objective">Objective</h3>
-<p>The task is to extract meaningful topics from visitor responses collected from the National Holocaust Museum in Amsterdam, using topic modeling (BERTopic), frequency-based analysis, and visualization tools.</p>
-</section>
-<section id="requirements" class="level3">
-<h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
+<section id="museum-text-analysis" class="level1">
+<h1>Museum Text Analysis</h1>
+<p>This project is a Streamlit-based application for analyzing open-ended questionnaire responses from museum visitors using BERTopic.<br>
+Developed as part of the course <em>Programming: The Next Step 2025</em>, this tool helps researchers and museum staff extract and visualize thematic insights from qualitative data.</p>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
 <ul>
-<li>Python ≥ 3.9</li>
-<li>Packages:
-<ul>
-<li>streamlit</li>
-<li>bertopic</li>
-<li>sklearn</li>
-<li>pandas</li>
-<li>matplotlib</li>
-<li>seaborn</li>
-<li>wordcloud</li>
-<li>plotly</li>
-</ul></li>
-<li>A CSV file with the following four columns:
-<ul>
-<li>“What kind of emotions did the exhibit trigger in you”</li>
-<li>“Is there an item or story from the exhibit that stayed with you? If so, why?”</li>
-<li>“What is your key takeaway from this exhibition?”</li>
-<li>“To what extent did the exhibition move you?”</li>
-</ul></li>
+<li>Upload and process CSV files containing text responses</li>
+<li>Topic modeling using <a href="https://doi.org/10.48550/arXiv.2203.05794">BERTopic</a></li>
+<li>Visualize topics and word distributions interactively.</li>
+<li>Download topic summaries and visualizations for reporting purposes.</li>
+<li>User-friendly interface built with Streamlit.</li>
+<li>Includes a sample dataset for quick testing and demonstration.</li>
 </ul>
 </section>
-<section id="technique" class="level3">
-<h3 class="anchored" data-anchor-id="technique">Technique</h3>
-<p>The app performs: - Topic modeling using <a href="https://maartengr.github.io/BERTopic/">BERTopic</a> -Word cloud generation - Frequency counts for to what extent visitors were emotionally engaged</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Install the package and its dependencies in editable mode:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-e</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ensure you have the required dependencies installed (see pyproject.toml for dependencies list).</p>
 </section>
-</section>
-<section id="how-to-guide" class="level1">
-<h1>How-to Guide</h1>
-<p>For an example of how to use the run the topic modeling directly in the terminal, see example below.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python run_analysis.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will run the BERTopic model on all columns in the sample survey responses and provide a topic summary. It will:</p>
-<ul>
-<li>Load your CSV file.</li>
-<li>Apply BERTopic to each open-ended question column.</li>
-<li>Print a summary of discovered topics for each question.</li>
-<li>Save the results in the sample_data folder as “sample_topic_summary.csv”.</li>
-<li>Save the results as “sample_topic_summary.csv” to disk for further analysis.</li>
-</ul>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.56.41.png" class="img-fluid" width="345"></p>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.58.07.png" class="img-fluid"></p>
-<section id="to-launch-the-streamlit-app." class="level3">
-<h3 class="anchored" data-anchor-id="to-launch-the-streamlit-app.">To launch the Streamlit app.</h3>
+<section id="how-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use">How to Use</h2>
+<section id="option-1-use-the-interactive-streamlit-app" class="level3">
+<h3 class="anchored" data-anchor-id="option-1-use-the-interactive-streamlit-app">Option 1: Use the Interactive Streamlit App</h3>
 <ol type="1">
-<li>Launch the app from your terminal:</li>
+<li>Run the Streamlit app:</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>streamlit run src<span class="op">/</span>museum_text_analysis<span class="op">/</span>app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>streamlit run src<span class="op">/</span>museum_text_analysis<span class="op">/</span>app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
-<li><p>Upload your CSV file when prompted in the app (see sample_data folder for appropriate dataset)</p></li>
-<li><p>Navigate through the output to explore:</p>
+<li>In the browser window that opens:
 <ul>
-<li><p>Overall topic summary and distribution</p>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.15.08.png" class="img-fluid" width="559"></p></li>
-<li><p>Topic analysis per question</p>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.17.24.png" class="img-fluid" width="559"></p></li>
-<li><p>Frequency count for responses to the question <em>“To what extent did the exhibition move you?”</em></p>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.17.41.png" class="img-fluid" width="559"></p></li>
-<li><p>Word cloud of responses</p>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.17.50.png" class="img-fluid" width="559"></p></li>
-<li><p>(Optional) Top word frequency</p>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.17.55.png" class="img-fluid" width="559"></p></li>
+<li>Upload a CSV file containing open-text responses (see sample_data/sample_responses.csv for format).</li>
+<li>The app will automatically detect text, preprocess it, and run BERTopic.</li>
+<li>Explore the generated topics and keyword visualizations interactively.</li>
+<li>Download the results as CSV files or visualizations for further analysis or reporting.</li>
 </ul></li>
-<li><p>(Optional) Download a summary of the topic modeling and visualization outputs</p>
-<p><img src="images/Screenshot%202025-05-25%20at%2013.22.02.png" class="img-fluid" width="590"></p></li>
 </ol>
 </section>
+<section id="option-2-run-the-analysis-script-directly" class="level3">
+<h3 class="anchored" data-anchor-id="option-2-run-the-analysis-script-directly">Option 2: Run the Analysis Script Directly</h3>
+<ol type="1">
+<li>If you prefer not to use the Streamlit app, you can run the BERTopic analysis directly from the command line.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>python src<span class="op">/</span>museum_text_analysis<span class="op">/</span>bertopic_analysis.py <span class="op">--</span>run_analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or, if you prefer, you can run the provided script from the project root:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>python run_analysis.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will: - Load the sample data from <code>sample_data/sample_responses.csv</code>. - Preprocess the text data. - Run BERTopic to generate topics. - Save the topic summary in the <code>sample_data</code> folder.</p>
 </section>
-<section id="use-cases" class="level1">
-<h1>Use Cases</h1>
-<ul>
-<li><p>Researchers analyzing open-ended feedback from visitors</p></li>
-<li><p>Social scientists exploring how people emotionally connect to historical events</p></li>
-<li><p>Curators and educators looking to improve exhibit design and visitor engagement</p></li>
-</ul>
 </section>
-<section id="references" class="level1">
-<h1>References</h1>
-<ul>
-<li>BERTopic: https://maartengr.github.io/BERTopic/</li>
-<li>Streamlit: https://streamlit.io/</li>
-<li>WordCloud: https://github.com/amueller/word_cloud</li>
-</ul>
+<section id="installation-from-github" class="level2">
+<h2 class="anchored" data-anchor-id="installation-from-github">Installation from GitHub</h2>
+<p>You can install the package directly from GitHub using pip:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pip install git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>Programming<span class="op">-</span>The<span class="op">-</span>Next<span class="op">-</span>Step<span class="op">-</span><span class="dv">2025</span><span class="op">/</span>museum<span class="op">-</span>text<span class="op">-</span>analysis.git<span class="co">#egg=museum_text_analysis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="appendix-troubleshooting" class="level1">
-<h1>Appendix: Troubleshooting</h1>
-<ul>
-<li>Missing columns? → Make sure your CSV matches the expected schema.</li>
-<li>No topics generated? → Check if input text is sparse or contains too many stop words.</li>
-<li>App won’t launch? → Confirm you installed all requirements and are running streamlit run app.py.</li>
-</ul>
+<section id="sample-data" class="level2">
+<h2 class="anchored" data-anchor-id="sample-data">Sample Data</h2>
+<p>A sample dataset is included in the sample_data folder as sample_responses.csv to help you get started quickly.</p>
 </section>
-<section id="license" class="level1">
-<h1>License</h1>
-<p>MIT License</p>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">License</h2>
+<p>This project is licensed under the MIT Licens (https://choosealicense.com/licenses/mit/). You are free to use, modify, and distribute this code, provided that appropriate credit is given to the original author.</p>
 </section>
-<section id="credits" class="level1">
-<h1>Credits</h1>
-<p>Developed by Klara Selén.<br>
-Built with Python, BERTopic, and Streamlit.</p>
 </section>
 
 </main>

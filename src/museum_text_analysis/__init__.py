@@ -1,6 +1,6 @@
 """Init file for the museum_text_analysis package."""
 
-from .bertopic_analysis import load_data, run_bertopic
+from .bertopic_analysis import load_data, run_bertopic, run_bertopic_per_column
 from .museum_topic_utils import (
     clean_text,
     get_custom_stop_words,

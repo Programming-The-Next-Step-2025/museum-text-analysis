@@ -4,19 +4,21 @@ format: html
 editor: visual
 ---
 
-## Overview
+# Overview
 
-This project is a Streamlit-based application for analysing open-ended questionnaire responses from museum visitors using BERTopic.
+This project is a Streamlit-based application for analyzing open-ended questionnaire responses from museum visitors using BERTopic.
 
 This vignette demonstrates how to use the `museum_text_analysis` package to explore open-ended museum visitor responses using BERTopic.
 
-It walks through: - Requirements and setup - How to use the Streamlit app interface - An example application using real (anonymized and simulated) visitor response data from a Holocaust exhibition.
+# Installation
 
-Author: Klara Selén
+To install locally:
 
-## Installation
+``` python
+pip install -e src
+```
 
-## Task Overview & Requirements
+# Task Overview & Requirements
 
 ### Objective
 
@@ -42,22 +44,93 @@ The task is to extract meaningful topics from visitor responses collected from t
 
 ### Technique
 
-The app performs: - Topic modeling using [BERTopic](https://maartengr.github.io/BERTopic/) - Word cloud generation - Frequency counts for emotional movement answers
+The app performs:
 
-## How-to Guide
+-   Topic modeling using [BERTopic](https://maartengr.github.io/BERTopic/) (both per question and on all combined data)
+-   Word cloud generation
+-   Frequency counts for to what extent visitors were emotionally engaged
 
-## Use Cases
+# How-to Guide
 
-## An Example
+For an example of how to use the run the topic modeling directly in the terminal, see example below.
 
-## References
+``` python
+python run_analysis.py
+```
+
+This will run the BERTopic model on all columns in the sample survey responses and provide a topic summary. It will:
+
+-   Load your CSV file.
+-   Apply BERTopic to each open-ended question column.
+-   Print a summary of discovered topics for each question.
+-   Save the results in the sample_data folder as "sample_topic_summary.csv".
+-   Save the results as "sample_topic_summary.csv" to disk for further analysis.
+
+![](images/Screenshot%202025-05-25%20at%2013.56.41.png){width="345"}
+
+![](images/Screenshot%202025-05-25%20at%2013.58.07.png)
+
+### To launch the Streamlit app.
+
+1.  Launch the app from your terminal:
+
+``` python
+streamlit run src/museum_text_analysis/app.py
+```
+
+2.  Upload your CSV file when prompted in the app (see sample_data folder for appropriate dataset)
+
+3.  Navigate through the output to explore:
+
+    -   Overall topic summary and distribution
+
+        ![](images/Screenshot%202025-05-25%20at%2013.15.08.png){width="559"}
+
+    -   Topic analysis per question
+
+        ![](images/Screenshot%202025-05-25%20at%2013.17.24.png){width="559"}
+
+    -   Frequency count for responses to the question *"To what extent did the exhibition move you?"*
+
+        ![](images/Screenshot%202025-05-25%20at%2013.17.41.png){width="559"}
+
+    -   Word cloud of responses
+
+        ![](images/Screenshot%202025-05-25%20at%2013.17.50.png){width="559"}
+
+    -   (Optional) Top word frequency
+
+        ![](images/Screenshot%202025-05-25%20at%2013.17.55.png){width="559"}
+
+4.  (Optional) Download a summary of the topic modeling and visualization outputs
+
+    ![](images/Screenshot%202025-05-25%20at%2013.22.02.png){width="590"}
+
+# Use Cases
+
+-   Researchers analyzing open-ended feedback from visitors
+
+-   Social scientists exploring how people emotionally connect to historical events
+
+-   Curators and educators looking to improve exhibit design and visitor engagement
+
+# References
 
 -   BERTopic: https://maartengr.github.io/BERTopic/
 -   Streamlit: https://streamlit.io/
 -   WordCloud: https://github.com/amueller/word_cloud
 
-## Appendix: Troubleshooting
+# Appendix: Troubleshooting
 
--   Missing columns? → Make sure your CSV matches the expected schema and uses ; as a delimiter.
+-   Missing columns? → Make sure your CSV matches the expected input.
 -   No topics generated? → Check if input text is sparse or contains too many stop words.
 -   App won't launch? → Confirm you installed all requirements and are running streamlit run app.py.
+
+# License
+
+MIT License
+
+# Credits
+
+Developed by Klara Selén.\
+Built with Python, BERTopic, and Streamlit.
