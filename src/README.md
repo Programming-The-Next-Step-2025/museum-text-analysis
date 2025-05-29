@@ -14,6 +14,10 @@ Developed as part of the course *Programming: The Next Step 2025*, this tool hel
 
 ## Installation
 
+```bash
+pip install git+https://github.com/Programming-The-Next-Step-2025/museum-text-analysis.git
+```
+
 Install the package and its dependencies in editable mode:
 
 ```bash
@@ -31,6 +35,12 @@ Ensure you have the required dependencies installed (see pyproject.toml for depe
 ```python
 streamlit run src/museum_text_analysis/app.py
 ```
+If you encounter issues with the streamlit command not being found, or if you're running the app from within a script or IDE, you can use the following command instead:
+
+```python
+python -m streamlit run src/museum_text_analysis/app.py
+```
+This will start the Streamlit app, which you can access in your browser (default: http://localhost:8501).
 
 2. In the browser window that opens:
     - Upload a CSV file containing open-text responses (see sample_data/sample_responses.csv for format).
