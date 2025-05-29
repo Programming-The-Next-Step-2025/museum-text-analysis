@@ -39,7 +39,7 @@ def clean_text(text: str) -> str:
         'hello world'
         >>> clean_text("Museum & Artifacts - A Journey")
         'museum artifacts journey'
-    >>> clean_text("Deeply moved by the experience!")
+        >>> clean_text("Deeply moved by the experience!")
         'deeply moved by the experience'
     """
     text = re.sub(r"[-+&]", " ", text)

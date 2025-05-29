@@ -42,6 +42,9 @@ The task is to extract meaningful topics from visitor responses collected from t
     -   seaborn
     -   wordcloud
     -   plotly
+    -   umap-learn
+    -   hdbscan
+    -   sentence-transformers
 
 ### Input File Format
 
@@ -87,8 +90,25 @@ The app provides:
 ### Usage Features
 
 -   Handles NaNs and blank responses robustly.
+
 -   Option to export topics and plots for reports.
+
 -   Includes a **sample dataset** for demonstration or testing.
+
+-   A CSV file with the following four columns:
+
+    -   "What kind of emotions did the exhibit trigger in you"
+    -   "Is there an item or story from the exhibit that stayed with you? If so, why?"
+    -   "What is your key takeaway from this exhibition?"
+    -   "To what extent did the exhibition move you?"
+
+### Technique
+
+The app performs:
+
+-   Topic modeling using [BERTopic](https://maartengr.github.io/BERTopic/) (both per question and on all combined data)
+-   Word cloud generation
+-   Frequency counts for to what extent visitors were emotionally engaged \>\>\>\>\>\>\> origin/main
 
 # How-to Guide
 
@@ -101,8 +121,11 @@ python run_analysis.py
 This will run the BERTopic model on all columns in the sample survey responses and provide a topic summary. It will:
 
 -   Load your CSV file.
+
 -   Apply BERTopic to each open-ended question column.
+
 -   Print summary of discovered topics for each question.
+
 -   Save the results in the `sample_data` folder as `sample_topic_summary.csv`.
 
 ![](images/Screenshot%202025-05-25%20at%2013.56.41.png){width="345"}
@@ -118,6 +141,8 @@ streamlit run src/museum_text_analysis/app.py
 ```
 
 2.  Upload your `.csv` file when prompted in the app (see `sample_data/sample_responses.csv` for appropriate dataset)
+
+<!-- -->
 
 3.  Navigate through the output to explore:
 

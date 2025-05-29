@@ -1,8 +1,26 @@
-# src/museum_text_analysis/bertopic_analysis.py
+"""bertopic_analysis.py
 
-from bertopic import BERTopic
+Functions for loading museum response data and running BERTopic modeling.
+
+Includes:
+- Data loading and cleaning
+- Configurable BERTopic execution
+- Per-column topic modeling
+"""
+
+# Standard library
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer, ENGLISH_STOP_WORDS
+from typing import Dict
+
+# Third-party
+from bertopic import BERTopic
+from umap import UMAP
+from hdbscan import HDBSCAN
+from sklearn.feature_extraction.text import CountVectorizer
+from sentence_transformers import SentenceTransformer
+
+# Local
+from museum_text_analysis.museum_topic_utils import get_custom_stop_words
 
 def load_data(uploaded_file) -> pd.DataFrame:
     """Load and prepare the data you want to analyze.
@@ -33,9 +51,10 @@ def load_data(uploaded_file) -> pd.DataFrame:
         Sadness The suitcase of a child Reminded me of the importance of remembering Very much
     """
     # Read CSV file from the uploaded file object
-    df = pd.read_csv(uploaded_file, sep=";")
+    df = pd.read_csv(uploaded_file, sep=",")
 
     text_columns = [
+        "What kind of emotions did the exhibit trigger in you?",
         "Is there an item or story from the exhibit that stayed with you? If so, why?",
         "What is your key takeaway from this exhibition?",
         "To what extent did the exhibition move you?"
@@ -117,14 +136,16 @@ def run_bertopic(texts: list[str]) -> tuple[list[int], BERTopic]:
         ["resist", "kind", "aware", "sadness"]
     ]
 
-   # Create BERTopic model with custom vectorizer and seed topics
     model = BERTopic(
+        embedding_model=embedding_model,
+        umap_model=umap_model,
+        hdbscan_model=hdbscan_model,
         vectorizer_model=vectorizer_model,
         seed_topic_list=seed_topic_list,
+        min_topic_size=15,
         verbose=True
     )
 
-    # Fit the model to the texts
     topics, _ = model.fit_transform(texts)
 
     # Force reduction to fewer topics if needed

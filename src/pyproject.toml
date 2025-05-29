@@ -4,6 +4,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["museum_text_analysis"]
+source = "src"
 
 [project]
 name = "museum_text_analysis"
@@ -18,8 +19,8 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-license = "MIT"
-license-files = ["LICEN[CS]E*"]
+
+license = {text = "MIT"}
 
 dependencies = [
     "streamlit",
@@ -28,7 +29,11 @@ dependencies = [
     "wordcloud",
     "matplotlib",
     "bertopic",
-    "scikit-learn"
+    "scikit-learn",
+    "umap-learn",
+    "hdbscan",
+    "sentence-transformers",
+    "seaborn",
 ]
 
 [project.urls]
