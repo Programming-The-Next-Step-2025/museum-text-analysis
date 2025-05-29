@@ -100,32 +100,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>This project is a Streamlit-based application for analyzing open-ended questionnaire responses from museum visitors using BERTopic.</p>
 <p>This vignette demonstrates how to use the <code>museum_text_analysis</code> package to explore open-ended museum visitor responses using BERTopic.</p>
 </section>
 <section id="installation" class="level1">
 <h1>Installation</h1>
-<<<<<<< HEAD
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>Programming<span class="op">-</span>The<span class="op">-</span>Next<span class="op">-</span>Step<span class="op">-</span><span class="dv">2025</span><span class="op">/</span>museum<span class="op">-</span>text<span class="op">-</span>analysis.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To install the package locally, run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install <span class="op">-</span>e src</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-=======
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>Programming<span class="op">-</span>The<span class="op">-</span>Next<span class="op">-</span>Step<span class="op">-</span><span class="dv">2025</span><span class="op">/</span>museum<span class="op">-</span>text<span class="op">-</span>analysis.git<span class="co">#egg=museum_text_analysis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
->>>>>>> origin/main
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pip install <span class="op">-</span>e src</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="task-overview-requirements" class="level1">
 <h1>Task Overview &amp; Requirements</h1>
 <section id="objective" class="level3">
 <h3 class="anchored" data-anchor-id="objective">Objective</h3>
-<<<<<<< HEAD
 <p>The task is to extract meaningful topics from visitor responses collected from the National Holocaust Museum in Amsterdam, using:</p>
 <ul>
 <li><p>Topic modeling (BERTopic)</p></li>
 <li><p>Frequency-based analysis</p></li>
 <li><p>Visualization tools.</p></li>
 </ul>
-=======
-<p>The task is to extract meaningful topics from visitor responses collected from the National Holocaust Museum in Amsterdam, using topic modeling (BERTopic), frequency-based analysis, and visualization tools.</p>
->>>>>>> origin/main
 </section>
 <section id="requirements" class="level3">
 <h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
@@ -141,30 +133,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>seaborn</li>
 <li>wordcloud</li>
 <li>plotly</li>
+<li>umap-learn</li>
+<li>hdbscan</li>
+<li>sentence-transformers</li>
 </ul></li>
-<<<<<<< HEAD
 </ul>
 </section>
 <section id="input-file-format" class="level3">
 <h3 class="anchored" data-anchor-id="input-file-format">Input File Format</h3>
 <p>Your <code>.csv</code> file must contain the following four columns:</p>
-=======
-<li>A CSV file with the following four columns:
->>>>>>> origin/main
 <ul>
 <li>“What kind of emotions did the exhibit trigger in you”</li>
 <li>“Is there an item or story from the exhibit that stayed with you? If so, why?”</li>
 <li>“What is your key takeaway from this exhibition?”</li>
 <li>“To what extent did the exhibition move you?”</li>
-<<<<<<< HEAD
-=======
-</ul></li>
->>>>>>> origin/main
 </ul>
 </section>
 <section id="technique" class="level3">
 <h3 class="anchored" data-anchor-id="technique">Technique</h3>
-<<<<<<< HEAD
 <p>This application uses <a href="https://maartengr.github.io/BERTopic/">BERTopic</a> to extract themes from open-ended text responses. It supports both combined and per-column analyses and provides visual and exportable summaries of topics and emotional engagement.</p>
 <section id="topic-modeling-pipeline" class="level4">
 <h4 class="anchored" data-anchor-id="topic-modeling-pipeline"><strong>Topic Modeling Pipeline</strong></h4>
@@ -216,31 +202,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="usage-features" class="level3">
 <h3 class="anchored" data-anchor-id="usage-features">Usage Features</h3>
 <ul>
-<li>Handles NaNs and blank responses robustly.</li>
-<li>Option to export topics and plots for reports.</li>
-<li>Includes a <strong>sample dataset</strong> for demonstration or testing.</li>
+<li><p>Handles NaNs and blank responses robustly.</p></li>
+<li><p>Option to export topics and plots for reports.</p></li>
+<li><p>Includes a <strong>sample dataset</strong> for demonstration or testing.</p></li>
 </ul>
-=======
-<p>The app performs: - Topic modeling using <a href="https://maartengr.github.io/BERTopic/">BERTopic</a> -Word cloud generation - Frequency counts for to what extent visitors were emotionally engaged</p>
->>>>>>> origin/main
+</section>
+<section id="technique-1" class="level3">
+<h3 class="anchored" data-anchor-id="technique-1">Technique</h3>
+<p>The app performs:</p>
+<ul>
+<li>Topic modeling using <a href="https://maartengr.github.io/BERTopic/">BERTopic</a> (both per question and on all combined data)</li>
+<li>Topic summaries and visualizations</li>
+<li>Frequency counts for to what extent visitors were emotionally engaged</li>
+<li>(Optional) Top word frequency analysis</li>
+<li>(Optional) Exports of topic modeling summaries and visualization outputs</li>
+</ul>
 </section>
 </section>
 <section id="how-to-guide" class="level1">
 <h1>How-to Guide</h1>
 <p>For an example of how to use the run the topic modeling directly in the terminal, see example below.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python run_analysis.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>python run_analysis.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will run the BERTopic model on all columns in the sample survey responses and provide a topic summary. It will:</p>
 <ul>
-<li>Load your CSV file.</li>
-<li>Apply BERTopic to each open-ended question column.</li>
-<<<<<<< HEAD
-<li>Print summary of discovered topics for each question.</li>
-<li>Save the results in the <code>sample_data</code> folder as <code>sample_topic_summary.csv</code>.</li>
-=======
-<li>Print a summary of discovered topics for each question.</li>
-<li>Save the results in the sample_data folder as “sample_topic_summary.csv”.</li>
-<li>Save the results as “sample_topic_summary.csv” to disk for further analysis.</li>
->>>>>>> origin/main
+<li><p>Load your CSV file.</p></li>
+<li><p>Apply BERTopic to each open-ended question column.</p></li>
+<li><p>Print summary of discovered topics for each question.</p></li>
+<li><p>Save the results in the <code>sample_data</code> folder as <code>sample_topic_summary.csv</code>.</p></li>
 </ul>
 <p><img src="images/Screenshot%202025-05-25%20at%2013.56.41.png" class="img-fluid" width="345"></p>
 <p><img src="images/Screenshot%202025-05-25%20at%2013.58.07.png" class="img-fluid"></p>
@@ -249,13 +237,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Launch the app from your terminal:</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>streamlit run src<span class="op">/</span>museum_text_analysis<span class="op">/</span>app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>streamlit run src<span class="op">/</span>museum_text_analysis<span class="op">/</span>app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alternatively, if you are juggling multiple environments or if the CLI isn’t behaving as expected:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>python <span class="op">-</span>m streamlit run src<span class="op">/</span>museum_text_analysis<span class="op">/</span>app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will start the Streamlit app, which you can access in your browser (default: http://localhost:8501).</p>
 <ol start="2" type="1">
-<<<<<<< HEAD
 <li><p>Upload your <code>.csv</code> file when prompted in the app (see <code>sample_data/sample_responses.csv</code> for appropriate dataset)</p></li>
-=======
-<li><p>Upload your CSV file when prompted in the app (see sample_data folder for appropriate dataset)</p></li>
->>>>>>> origin/main
 <li><p>Navigate through the output to explore:</p>
 <ul>
 <li><p>Overall topic summary and distribution</p>
@@ -285,19 +272,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="references" class="level1">
 <h1>References</h1>
 <ul>
-<li>BERTopic: https://maartengr.github.io/BERTopic/</li>
-<li>Streamlit: https://streamlit.io/</li>
-<li>WordCloud: https://github.com/amueller/word_cloud</li>
+<li><a href="https://maartengr.github.io/BERTopic/">BERTopic</a></li>
+<li><a href="https://streamlit.io/">Streamlit</a></li>
+<li><a href="https://github.com/amueller/word_cloud">WordCloud</a></li>
 </ul>
 </section>
 <section id="appendix-troubleshooting" class="level1">
 <h1>Appendix: Troubleshooting</h1>
 <ul>
-<<<<<<< HEAD
 <li>Missing columns? → Make sure your CSV matches the expected input.</li>
-=======
-<li>Missing columns? → Make sure your CSV matches the expected schema.</li>
->>>>>>> origin/main
 <li>No topics generated? → Check if input text is sparse or contains too many stop words.</li>
 <li>App won’t launch? → Confirm you installed all requirements and are running streamlit run app.py.</li>
 </ul>

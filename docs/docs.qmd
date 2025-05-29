@@ -6,11 +6,13 @@ editor: visual
 
 # Overview
 
-This project is a Streamlit-based application for analyzing open-ended questionnaire responses from museum visitors using BERTopic.
-
 This vignette demonstrates how to use the `museum_text_analysis` package to explore open-ended museum visitor responses using BERTopic.
 
 # Installation
+
+``` python
+pip install git+https://github.com/Programming-The-Next-Step-2025/museum-text-analysis.git
+```
 
 To install the package locally, run:
 
@@ -95,20 +97,15 @@ The app provides:
 
 -   Includes a **sample dataset** for demonstration or testing.
 
--   A CSV file with the following four columns:
-
-    -   "What kind of emotions did the exhibit trigger in you"
-    -   "Is there an item or story from the exhibit that stayed with you? If so, why?"
-    -   "What is your key takeaway from this exhibition?"
-    -   "To what extent did the exhibition move you?"
-
 ### Technique
 
 The app performs:
 
 -   Topic modeling using [BERTopic](https://maartengr.github.io/BERTopic/) (both per question and on all combined data)
--   Word cloud generation
--   Frequency counts for to what extent visitors were emotionally engaged \>\>\>\>\>\>\> origin/main
+-   Topic summaries and visualizations
+-   Frequency counts for to what extent visitors were emotionally engaged
+-   (Optional) Top word frequency analysis
+-   (Optional) Exports of topic modeling summaries and visualization outputs
 
 # How-to Guide
 
@@ -140,9 +137,15 @@ This will run the BERTopic model on all columns in the sample survey responses a
 streamlit run src/museum_text_analysis/app.py
 ```
 
-2.  Upload your `.csv` file when prompted in the app (see `sample_data/sample_responses.csv` for appropriate dataset)
+Alternatively, if you are juggling multiple environments or if the CLI isn't behaving as expected:
 
-<!-- -->
+``` python
+python -m streamlit run src/museum_text_analysis/app.py
+```
+
+This will start the Streamlit app, which you can access in your browser (default: http://localhost:8501).
+
+2.  Upload your `.csv` file when prompted in the app (see `sample_data/sample_responses.csv` for appropriate dataset)
 
 3.  Navigate through the output to explore:
 
@@ -180,9 +183,9 @@ streamlit run src/museum_text_analysis/app.py
 
 # References
 
--   BERTopic: https://maartengr.github.io/BERTopic/
--   Streamlit: https://streamlit.io/
--   WordCloud: https://github.com/amueller/word_cloud
+-   [BERTopic](https://maartengr.github.io/BERTopic/)
+-   [Streamlit](https://streamlit.io/)
+-   [WordCloud](https://github.com/amueller/word_cloud)
 
 # Appendix: Troubleshooting
 
