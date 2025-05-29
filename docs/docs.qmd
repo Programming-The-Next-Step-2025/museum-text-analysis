@@ -12,7 +12,7 @@ This vignette demonstrates how to use the `museum_text_analysis` package to expl
 
 # Installation
 
-To install locally:
+To install the package locally, run:
 
 ``` python
 pip install -e src
@@ -22,7 +22,13 @@ pip install -e src
 
 ### Objective
 
-The task is to extract meaningful topics from visitor responses collected from the National Holocaust Museum in Amsterdam, using topic modeling (BERTopic), frequency-based analysis, and visualization tools.
+The task is to extract meaningful topics from visitor responses collected from the National Holocaust Museum in Amsterdam, using:
+
+-   Topic modeling (BERTopic)
+
+-   Frequency-based analysis
+
+-   Visualization tools.
 
 ### Requirements
 
@@ -36,7 +42,61 @@ The task is to extract meaningful topics from visitor responses collected from t
     -   seaborn
     -   wordcloud
     -   plotly
+    -   umap-learn
+    -   hdbscan
+    -   sentence-transformers
+
+### Input File Format
+
+Your `.csv` file must contain the following four columns:
+
+-   "What kind of emotions did the exhibit trigger in you"
+-   "Is there an item or story from the exhibit that stayed with you? If so, why?"
+-   "What is your key takeaway from this exhibition?"
+-   "To what extent did the exhibition move you?"
+
+### Technique
+
+This application uses [BERTopic](https://maartengr.github.io/BERTopic/) to extract themes from open-ended text responses. It supports both combined and per-column analyses and provides visual and exportable summaries of topics and emotional engagement.
+
+#### **Topic Modeling Pipeline**
+
+The core topic modeling is powered by a custom BERTopic pipeline:
+
+-   **Text preprocessing**:
+    -   `CountVectorizer` with a tailored stop word list (includes both standard English and domain-specific terms).
+    -   Text cleaning to remove punctuation, digits, and extra whitespace.
+-   **Embedding model**:
+    -   Uses `MiniLM` sentence embeddings (`all-MiniLM-L6-v2`) for semantically meaningful representations of short texts.
+-   **Dimensionality reduction**:
+    -   `UMAP` reduces the high-dimensional embedding space to 5 components for efficient clustering.
+-   **Clustering algorithm**:
+    -   `HDBSCAN` forms robust clusters of semantically similar responses.
+-   **Seed topic guidance**:
+    -   Optional seed topic list nudges the model toward specific themes (e.g., emotion, historical memory, political reflection).
+
+### Output & Visualization
+
+The app provides:
+
+-   **Topic summaries**:
+    -   Labelled topics with top keywords and document counts.
+    -   Exportable `.csv` summaries for reporting or further analysis.
+-   **Interactive topic visualization**:
+    -   Plots of topic distributions and keyword frequencies using `pyplot`, `seaborn`, and `wordcloud`.
+-   **Emotional engagement analysis**:
+    -   Quantifies to what extent visitors were emotionally engaged.
+
+### Usage Features
+
+-   Handles NaNs and blank responses robustly.
+
+-   Option to export topics and plots for reports.
+
+-   Includes a **sample dataset** for demonstration or testing.
+
 -   A CSV file with the following four columns:
+
     -   "What kind of emotions did the exhibit trigger in you"
     -   "Is there an item or story from the exhibit that stayed with you? If so, why?"
     -   "What is your key takeaway from this exhibition?"
@@ -48,7 +108,7 @@ The app performs:
 
 -   Topic modeling using [BERTopic](https://maartengr.github.io/BERTopic/) (both per question and on all combined data)
 -   Word cloud generation
--   Frequency counts for to what extent visitors were emotionally engaged
+-   Frequency counts for to what extent visitors were emotionally engaged \>\>\>\>\>\>\> origin/main
 
 # How-to Guide
 
@@ -61,10 +121,12 @@ python run_analysis.py
 This will run the BERTopic model on all columns in the sample survey responses and provide a topic summary. It will:
 
 -   Load your CSV file.
+
 -   Apply BERTopic to each open-ended question column.
--   Print a summary of discovered topics for each question.
--   Save the results in the sample_data folder as "sample_topic_summary.csv".
--   Save the results as "sample_topic_summary.csv" to disk for further analysis.
+
+-   Print summary of discovered topics for each question.
+
+-   Save the results in the `sample_data` folder as `sample_topic_summary.csv`.
 
 ![](images/Screenshot%202025-05-25%20at%2013.56.41.png){width="345"}
 
@@ -78,7 +140,9 @@ This will run the BERTopic model on all columns in the sample survey responses a
 streamlit run src/museum_text_analysis/app.py
 ```
 
-2.  Upload your CSV file when prompted in the app (see sample_data folder for appropriate dataset)
+2.  Upload your `.csv` file when prompted in the app (see `sample_data/sample_responses.csv` for appropriate dataset)
+
+<!-- -->
 
 3.  Navigate through the output to explore:
 

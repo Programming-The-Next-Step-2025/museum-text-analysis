@@ -26,12 +26,27 @@ def analyze_sample_file(filepath: Path = SAMPLE_FILE,
                         output_csv: bool = True):
     """Run BERTopic on combined text columns from a CSV file.
 
+    This function loads a CSV file containing visitor responses, combines specified text columns,
+    and runs BERTopic to identify topics in the responses. It also provides an option to save the topic
+    summary to a CSV file.
+
     Args:
-        filepath: Path to the input CSV file.
-        output_csv: Whether to save the topic summary to a CSV.
+        filepath (Path): Path to the input CSV file. Default is 'sample_data/sample_responses.csv'.
+        output_csv (bool): Whether to save the topic summary to a CSV file. Default is True.
 
     Returns:
-        A tuple of (model, topic_info DataFrame).
+        Tuple[BERTopic, pd.DataFrame]: A tuple containing:
+            - model (BERTopic): The trained BERTopic model.
+            - topic_info (pd.DataFrame): DataFrame containing topic information.
+
+    Examples:
+        >>> model, topic_info = analyze_sample_file()
+        >>> print(topic_info.head())
+        Top Topics Summary:
+           Topic  Count  Name
+        0      0    50  Topic 0
+        1      1    30  Topic 1
+        ...
     """
     print(f"Loading data from: {filepath}")
     df = load_data(filepath)
